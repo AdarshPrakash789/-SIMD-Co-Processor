@@ -1,4 +1,4 @@
-<img width="963" alt="Screenshot 2025-06-02 at 10 04 07 PM" src="https://github.com/user-attachments/assets/9dc6fb7d-0928-46cc-bc71-afe654f27df9" />///////////////////////////////////////////
+///////////////////////////////////////////
 // File: simd.v
 // Description: SIMD Co-Processor in Verilog
 ///////////////////////////////////////////
@@ -27,14 +27,17 @@ module SIMD #(parameter WIDTH = 8, parameter N = 4)(
     end
 
     // SIMD Addition Operation
-    always @(posedge clk) begin
+    always @(posedge clk or posedge rst) begin
         if (rst) begin
             done <= 0;
-            result_flat <= 0;
+            for (i = 0; i < N; i = i + 1)
+                result[i] <= 0;
         end else if (start) begin
             for (i = 0; i < N; i = i + 1)
                 result[i] <= A[i] + B[i];
             done <= 1;
+        end else begin
+            done <= 0; // Reset done if not starting
         end
     end
 
@@ -94,7 +97,7 @@ module tb_simd;
         #10 start = 1;
         #10 start = 0;
 
-        #30;
+        #20;
         $display("Result: %h", result_flat); // Expected: 2C21160B
         $finish;
     end
@@ -113,46 +116,57 @@ endmodule
 **Role**: Design Verification Intern
 
 ## 📌 Overview
-This project implements a SIMD (Single Instruction, Multiple Data) Co-Processor using Verilog HDL. It adds two 4-element vectors in parallel.
+This project implements a SIMD (Single Instruction, Multiple Data) Co-Processor using Verilog HDL. It performs parallel addition of two 4-element vectors. Each element is 8 bits wide. This design simulates a fundamental building block of parallel processors used in GPUs and AI accelerators.
+
+## 🧠 Features
+- Parametrized design: Supports configurable bit width (`WIDTH`) and number of elements (`N`).
+- SIMD-based parallel addition.
+- Testbench for verification.
+- Generates VCD dump for waveform analysis.
 
 ## 📁 Files
-- `simd.v` — Verilog RTL design
-- `tb_simd.v` — Testbench
-- `README.md` — Documentation
+- `simd.v` — Verilog RTL design for SIMD Co-Processor
+- `tb_simd.v` — Verilog testbench file
+- `README.md` — Documentation and usage guide
+
+## 🧪 Test Case
+**Inputs:**
+- `A = [1, 2, 3, 4]`
+- `B = [10, 20, 30, 40]`
+
+**Expected Output:**
+- `Result = [11, 22, 33, 44]`
+- **Hex Representation**: `2C21160B`
 
 ## 🔧 Run Commands
 
-### VCS Compile:
+### ➤ Compile (VCS):
 ```bash
 vcs simd.v tb_simd.v -lca -kdb -debug_access+all -full64
 ```
 
-### Simulation:
+### ➤ Simulate:
 ```bash
 ./simv
 ```
 
-### Waveform Viewing (Verdi):
+### ➤ Waveform Viewing (Verdi):
 ```bash
 vcs -full64 simd.v tb_simd.v -debug_access+all -lca -kdb
 ./simv -verdi
 ```
 
-## Output
-**Input**: A = [1,2,3,4], B = [10,20,30,40]  
-**Expected Output (Hex)**: `2C21160B`
- <img width="871" alt="Screenshot 2025-06-02 at 10 03 21 PM" src="https://github.com/user-attachments/assets/c04e52b9-853f-48ea-8032-95f93b9cb3a2" />
+## 📸 Screenshots
 
- <img width="966" alt="Screenshot 2025-06-02 at 10 04 23 PM" src="https://github.com/user-attachments/assets/ba58dcda-cac4-4d1d-925c-53243aa73401" />
-
- <img width="959" alt="Screenshot 2025-06-02 at 10 04 45 PM" src="https://github.com/user-attachments/assets/7d5cbb10-04d7-4d8f-b31b-17f80c680152" />
-
- <img width="956" alt="Screenshot 2025-06-02 at 10 05 06 PM" src="https://github.com/user-attachments/assets/b44ac8d2-d368-4bd5-abf4-0e9c9a5e3b7e" />
-
- <img width="1005" alt="Screenshot 2025-06-02 at 10 05 30 PM" src="https://github.com/user-attachments/assets/195bb28e-d57e-4f11-bf2e-44e2391924a7" />
+| Simulation Output | Verdi Waveform |
+|-------------------|----------------|
+| ![Screenshot 1](https://github.com/user-attachments/assets/9dc6fb7d-0928-46cc-bc71-afe654f27df9) | ![Screenshot 4](https://github.com/user-attachments/assets/7d5cbb10-04d7-4d8f-b31b-17f80c680152) |
+| ![Screenshot 2](https://github.com/user-attachments/assets/c04e52b9-853f-48ea-8032-95f93b9cb3a2) | ![Screenshot 5](https://github.com/user-attachments/assets/b44ac8d2-d368-4bd5-abf4-0e9c9a5e3b7e) |
+| ![Screenshot 3](https://github.com/user-attachments/assets/ba58dcda-cac4-4d1d-925c-53243aa73401) | ![Screenshot 6](https://github.com/user-attachments/assets/195bb28e-d57e-4f11-bf2e-44e2391924a7) |
 
 ## 📧 Contact
-**Adarsh Prakash** 
+**Adarsh Prakash**  
+📧 kumaradarsh663@gmail.com
 
-📧 kumaradarsh663@gmail.com  
-
+---
+⭐ Feel free to fork, star and open issues or suggestions!
