@@ -1,3 +1,46 @@
+SIMD Co-Processor in Verilog HDL
+Project Details
+👨‍💻 Developer
+Adarsh PrakashRole: Design Verification Intern📧 Email: kumaradarsh663@gmail.com
+📌 Overview
+This project implements a SIMD (Single Instruction, Multiple Data) Co-Processor using Verilog HDL. It performs parallel addition of two 4-element vectors, with each element being 8 bits wide. This design serves as a fundamental building block for parallel processors used in GPUs and AI accelerators.
+🧠 Features
+
+Parametrized Design: Configurable bit width (WIDTH) and number of elements (N).
+SIMD Operation: Supports parallel addition of vectors.
+Verification: Includes a testbench for functional verification.
+Waveform Analysis: Generates VCD dump for waveform inspection.
+
+📁 Files
+
+simd.v: Verilog RTL design for the SIMD Co-Processor.
+tb_simd.v: Verilog testbench for simulation and verification.
+README.md: Documentation and usage guide.
+
+🧪 Test Case
+Inputs:
+
+A = [1, 2, 3, 4]
+B = [10, 20, 30, 40]
+
+Expected Output:
+
+Result = [11, 22, 33, 44]
+Hex Representation: 2C21160B
+
+🔧 Run Commands
+Compile (VCS):
+vcs simd.v tb_simd.v -lca -kdb -debug_access+all -full64
+
+Simulate:
+./simv
+
+Waveform Viewing (Verdi):
+vcs -full64 simd.v tb_simd.v -debug_access+all -lca -kdb
+./simv -verdi
+
+Code
+simd.v
 ///////////////////////////////////////////
 // File: simd.v
 // Description: SIMD Co-Processor in Verilog
@@ -48,7 +91,7 @@ module SIMD #(parameter WIDTH = 8, parameter N = 4)(
     end
 endmodule
 
-
+tb_simd.v
 ///////////////////////////////////////////
 // File: tb_simd.v
 // Description: Testbench for SIMD Module
@@ -103,70 +146,26 @@ module tb_simd;
     end
 endmodule
 
+Screenshots
 
-///////////////////////////////////////////
-// File: README.md
-// Description: GitHub documentation
-///////////////////////////////////////////
 
-# SIMD Co-Processor in Verilog HDL
 
-## 👨‍💻 Developer
-**Adarsh Prakash**  
-**Role**: Design Verification Intern
+Simulation Output
+Verdi Waveform
 
-## 📌 Overview
-This project implements a SIMD (Single Instruction, Multiple Data) Co-Processor using Verilog HDL. It performs parallel addition of two 4-element vectors. Each element is 8 bits wide. This design simulates a fundamental building block of parallel processors used in GPUs and AI accelerators.
 
-## 🧠 Features
-- Parametrized design: Supports configurable bit width (`WIDTH`) and number of elements (`N`).
-- SIMD-based parallel addition.
-- Testbench for verification.
-- Generates VCD dump for waveform analysis.
 
-## 📁 Files
-- `simd.v` — Verilog RTL design for SIMD Co-Processor
-- `tb_simd.v` — Verilog testbench file
-- `README.md` — Documentation and usage guide
 
-## 🧪 Test Case
-**Inputs:**
-- `A = [1, 2, 3, 4]`
-- `B = [10, 20, 30, 40]`
 
-**Expected Output:**
-- `Result = [11, 22, 33, 44]`
-- **Hex Representation**: `2C21160B`
 
-## 🔧 Run Commands
 
-### ➤ Compile (VCS):
-```bash
-vcs simd.v tb_simd.v -lca -kdb -debug_access+all -full64
-```
 
-### ➤ Simulate:
-```bash
-./simv
-```
 
-### ➤ Waveform Viewing (Verdi):
-```bash
-vcs -full64 simd.v tb_simd.v -debug_access+all -lca -kdb
-./simv -verdi
-```
 
-## 📸 Screenshots
 
-| Simulation Output | Verdi Waveform |
-|-------------------|----------------|
-| ![Screenshot 1](https://github.com/user-attachments/assets/9dc6fb7d-0928-46cc-bc71-afe654f27df9) | ![Screenshot 4](https://github.com/user-attachments/assets/7d5cbb10-04d7-4d8f-b31b-17f80c680152) |
-| ![Screenshot 2](https://github.com/user-attachments/assets/c04e52b9-853f-48ea-8032-95f93b9cb3a2) | ![Screenshot 5](https://github.com/user-attachments/assets/b44ac8d2-d368-4bd5-abf4-0e9c9a5e3b7e) |
-| ![Screenshot 3](https://github.com/user-attachments/assets/ba58dcda-cac4-4d1d-925c-53243aa73401) | ![Screenshot 6](https://github.com/user-attachments/assets/195bb28e-d57e-4f11-bf2e-44e2391924a7) |
 
-## 📧 Contact
-**Adarsh Prakash**  
-📧 kumaradarsh663@gmail.com
 
----
-⭐ Feel free to fork, star and open issues or suggestions!
+
+
+Closing
+⭐ Feel free to fork, star, and open issues or suggestions! For any inquiries, please contact Adarsh Prakash at 📧 kumaradarsh663@gmail.com.
